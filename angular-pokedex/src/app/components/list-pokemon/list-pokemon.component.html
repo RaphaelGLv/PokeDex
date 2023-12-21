@@ -1,0 +1,14 @@
+<div class="content">
+    <ul class="list-container">
+        <li *ngFor="let pokemon of pokemons" class="card">
+            <div class="image">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.details.id}}.png" alt="">
+                <p class="id">#{{pokemon.details.id}}</p>
+            </div>
+            <div class="info">
+                <h3 class="name">{{pokemon.name | titlecase}}</h3>
+                <div class="types"></div>
+            </div>
+        </li>
+    </ul>
+</div>
