@@ -9,13 +9,24 @@
 
 .list-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 20% 20% 20% 20%;
 
-    margin: 4rem;
+    align-items: center;
+    justify-content: center;
+
+    margin: 2vw auto;
 
     width: 100%;
 
-    gap: 3rem;
+    gap: 4vw;
+
+    @media (max-width: 768px) {
+        grid-template-columns: auto auto auto;
+    }
+
+    @media (max-width: 540px) {
+        grid-template-columns: auto auto;
+    }
 }
 
 .card {
@@ -28,6 +39,7 @@
 
     border-radius: 24px;
     background-color: white;
+    
 }
 
 .image {
@@ -37,17 +49,28 @@
 
     text-align: end;
 
+    .img-container {
+        height: 90%;
+        width: 100%;
+    }
+
     img {
         height: 100%;
         width: 100%;
+
+        align-self: center;
 
         background-color: #DADADA;
 
         border-radius: 12px;
     }
 
-    p {
+    .id {
+        height: 10%;
+        width: 100%;
+
         color: #DADADA;
+        font-size: 1.5vw;
     }
 }
 
@@ -58,6 +81,8 @@
 
     h3 {
         font-weight: normal;
+        font-size: 1.5vw;
+        width: 100%;
     }
 
     .types {

@@ -2,8 +2,10 @@
     <ul class="list-container">
         <li *ngFor="let pokemon of pokemons" class="card">
             <div class="image">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.details.id}}.png" alt="">
-                <p class="id">#{{pokemon.details.id}}</p>
+                <div class="img-container">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon?.details?.id}}.png" alt="">
+                </div>
+                <p class="id">#{{pokemon?.details?.id}}</p>
             </div>
             <div class="info">
                 <h3 class="name">{{pokemon.name | titlecase}}</h3>
