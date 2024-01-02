@@ -1,37 +1,42 @@
-<div class="content">
-    <ul class="list-container">
-        <li *ngFor="let pokemon of pokemons" class="card">
-            <div class="image">
-                <div class="img-container">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon?.details?.id}}.png" alt="">
-                </div>
-                <p class="id">#{{pokemon?.details?.id}}</p>
-            </div>
-            <div class="info">
-                <h3 class="name">{{pokemon.name | titlecase}}</h3>
-                <div class="types">
-                    <div *ngFor="let item of pokemon?.details?.types">
-                        <p  class="type" *ngIf="item.type.name == 'bug'" style="background-color: #9dc530;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'dark'" style="background-color: #626172;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'dragon'" style="background-color: #0875bf;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'electric'" style="background-color: #f6d74f;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'fairy'" style="background-color: #f09ce3;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'fighting'" style="background-color: #d9435a;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'fire'" style="background-color: #ffa64f;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'flying'" style="background-color: #a1baea;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'ghost'" style="background-color: #666ec1;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'grass'" style="background-color: #5dbe66;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'ground'" style="background-color: #d78554;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'ice'" style="background-color: #78d0c4;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'normal'" style="background-color: #9da0a0;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'poison'" style="background-color: #b663ce;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'psychic'" style="background-color: #fa8181;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'rock'" style="background-color: #ccbe8e;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'steel'" style="background-color: #5599a4;">{{item.type.name | titlecase}}</p>
-                        <p  class="type" *ngIf="item.type.name == 'water'" style="background-color: #589fda;">{{item.type.name | titlecase}}</p>
+<app-nav-bar></app-nav-bar>
+<div class="router-wrapper">
+    <div class="content">
+        <ul class="list-container">
+            <li *ngFor="let pokemon of pokemons" class="card">
+                <a routerLink="/details/{{pokemon?.details?.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
+                    <div class="image">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon?.details?.id}}.png" alt="">
+                        </div>
+                        <p class="id">#{{pokemon?.details?.id}}</p>
                     </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+                    <div class="info">
+                        <h3 class="name">{{pokemon.name | titlecase}}</h3>
+                        <div class="types">
+                            <div *ngFor="let item of pokemon?.details?.types">
+                                <p  class="type" *ngIf="item.type.name == 'bug'" style="background-color: #9dc530;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'dark'" style="background-color: #626172;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'dragon'" style="background-color: #0875bf;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'electric'" style="background-color: #f6d74f;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'fairy'" style="background-color: #f09ce3;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'fighting'" style="background-color: #d9435a;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'fire'" style="background-color: #ffa64f;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'flying'" style="background-color: #a1baea;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'ghost'" style="background-color: #666ec1;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'grass'" style="background-color: #5dbe66;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'ground'" style="background-color: #d78554;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'ice'" style="background-color: #78d0c4;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'normal'" style="background-color: #9da0a0;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'poison'" style="background-color: #b663ce;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'psychic'" style="background-color: #fa8181;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'rock'" style="background-color: #ccbe8e;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'steel'" style="background-color: #5599a4;">{{item.type.name | titlecase}}</p>
+                                <p  class="type" *ngIf="item.type.name == 'water'" style="background-color: #589fda;">{{item.type.name | titlecase}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
