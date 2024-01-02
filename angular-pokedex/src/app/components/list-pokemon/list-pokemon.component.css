@@ -29,6 +29,11 @@
     }
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .card {
     list-style: none;
 
@@ -38,6 +43,7 @@
     padding: 1rem;
 
     border-radius: 24px;
+
     background-color: white;
     
 }
@@ -93,6 +99,8 @@
         .type {
             padding: 0.4vw 0.8vw;
             font-size: 1vw;
+
+            border-radius: 0.5vw;
 
             color: white;
         }
