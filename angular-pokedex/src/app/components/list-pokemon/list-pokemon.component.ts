@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { PokeAPIService } from '../../services/poke-api.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { TypeColors } from '../types';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,15 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    NavBarComponent
+    NavBarComponent,
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.css',
 })
 export class ListPokemonComponent implements OnInit {
-
   pokemons: any[] = []
+
+  typeColors = TypeColors
 
   constructor(private pokeAPIService: PokeAPIService) { }
 
@@ -29,7 +31,8 @@ export class ListPokemonComponent implements OnInit {
         this.pokemons = res.results;
         this.getPokemonDetails();
       }
-    ) 
+    )
+    
   }
 
   getPokemonDetails(): void {
