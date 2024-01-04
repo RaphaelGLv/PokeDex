@@ -1,12 +1,12 @@
 <app-nav-bar></app-nav-bar>
 <div class="router-wrapper">
-    <div class="content">
+    <div class="content" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
         <ul class="list-container">
             <li *ngFor="let pokemon of pokemons" class="card">
                 <a routerLink="/details/{{pokemon?.details?.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
                     <div class="image">
                         <div class="img-container">
-                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon?.details?.id}}.png" alt="">
+                            <img src="{{pokemon?.details?.sprites?.front_default}}" alt="">
                         </div>
                         <p class="id">#{{pokemon?.details?.id}}</p>
                     </div>

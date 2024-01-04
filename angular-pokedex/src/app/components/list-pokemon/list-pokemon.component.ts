@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { TypeColors } from '../types';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { TypeColors } from '../types';
     RouterLink,
     RouterLinkActive,
     NavBarComponent,
+    InfiniteScrollModule
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.css',
@@ -43,5 +45,14 @@ export class ListPokemonComponent implements OnInit {
         }
       )
     })
+  }
+
+  onScroll(): void {
+    this.pokeAPIService.apiListPokemonPage.subscribe(
+      res => {
+        this.pokemons = this.pokemons.concat(res.results);
+        this.getPokemonDetails();
+      }
+    )
   }
 }
