@@ -1,1 +1,118 @@
-<p>details-page works!</p>
+<div class="content">
+    <div class="nav-bar">
+        <div class="nav-left"></div>
+        <div class="triangle-left"></div>
+        <div class="nav-middle">
+            <img class="pokeball" src="../../assets/svg/pokeball.svg" alt="Pokeball image">
+            <div class="text">
+                <h1 class="name">{{pokemon?.name | titlecase}}</h1>
+                <p class="id">#{{pokemon?.id | number: '3.0-0'}}</p>
+            </div>
+        </div>
+        <div class="triangle-right"></div>
+        <div class="nav-right"></div>
+    </div>
+
+    <div class="card">
+        <a class="prev-button" *ngIf="prevPokemon.id" href="http://localhost:4200/details/{{prevPokemon.id}}">
+            <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
+            <img src="{{prevPokemon.img}}" alt="">
+            <div class="button-text">
+                <h3>{{prevPokemon.name | titlecase}}</h3>
+                <p>#{{prevPokemon.id | number: '3.0-0'}}</p>
+            </div>
+        </a>
+        <div class="card-content">
+
+            <div class="card-left">
+                <div class="pkm-img">
+                    <img src="{{pokemon?.sprites?.other?.showdown?.front_default}}" alt="">
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <p class="stat-name">HP</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[0].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <p class="stat-name">Attack</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[1].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <p class="stat-name">Defense</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[2].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <p class="stat-name">Special Attack</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[3].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <p class="stat-name">Special Defense</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[4].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <p class="stat-name">Speed</p>
+                        <div class="stat-bar">
+                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[5].base_stat)*0.66"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-right">
+                <div class="types">
+                    <div *ngFor="let item of pokemon?.types">
+                        <p class="type" [style.backgroundColor]="typeColors[item?.type?.name]">{{item.type.name |
+                            titlecase}}</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="height">
+                        <h2 class="info-title">Height</h2>
+                        <p class="info-value">{{pokemon?.height/10 | number: '1.2-2'}}m</p>
+                    </div>
+                    <div class="weight">
+                        <h2 class="info-title">Weight</h2>
+                        <p class="info-value">{{pokemon?.weight/10 | number: '1.2-2'}}kg</p>
+                    </div>
+                    <div class="abilities">
+                        <h2 class="info-title">Abilities</h2>
+                        <div class="info-value" *ngFor="let item of pokemon?.abilities">
+                            <p>{{item?.ability?.name | titlecase}}</p>
+                            <button class="details-button" (click)="showAbilityEffect(item?.ability?.details, $event)">
+                                <img src="../../../assets/svg/question-mark-in-a-circle-outline-svgrepo-com (1).svg"
+                                    alt="?">
+                                <div id="popUp"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="next-button" *ngIf="nextPokemon.id" href="http://localhost:4200/details/{{nextPokemon.id}}">
+            <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
+            <img src="{{nextPokemon.img}}" alt="">
+            <div class="button-text">
+                <h3>{{nextPokemon.name | titlecase}}</h3>
+                <p>#{{nextPokemon.id | number: '3.0-0'}}</p>
+            </div>
+        </a>
+
+    </div>
+
+</div>

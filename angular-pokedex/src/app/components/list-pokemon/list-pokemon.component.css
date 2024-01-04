@@ -45,7 +45,12 @@ a {
     border-radius: 24px;
 
     background-color: white;
-    
+
+    transition: ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
 }
 
 .image {
@@ -66,7 +71,7 @@ a {
 
         align-self: center;
 
-        background-color: #DADADA;
+        background-color: var(--lightGray);
 
         border-radius: 12px;
     }
@@ -75,7 +80,7 @@ a {
         height: 10%;
         width: 100%;
 
-        color: #DADADA;
+        color: --var(lightGray);
         font-size: 1.5vw;
     }
 }
