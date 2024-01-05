@@ -32,6 +32,9 @@ export class ListPokemonComponent implements OnInit {
       res => {
         this.pokemons = res.results;
         this.getPokemonDetails();
+      },
+      err => {
+        console.log(err);
       }
     )
     
@@ -42,6 +45,9 @@ export class ListPokemonComponent implements OnInit {
       this.pokeAPIService.getPokemon(pokemon.url).subscribe(
         res => {
           pokemon.details = res;
+        },
+        err => {
+          console.log(err);
         }
       )
     })
@@ -52,6 +58,9 @@ export class ListPokemonComponent implements OnInit {
       res => {
         this.pokemons = this.pokemons.concat(res.results);
         this.getPokemonDetails();
+      },
+      err => {
+        console.log(err);
       }
     )
   }

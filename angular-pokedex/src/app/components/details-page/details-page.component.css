@@ -20,10 +20,30 @@
 
 .nav-left,
 .nav-right {
+    display: flex;
+    align-items: center;
+
     width: 25%;
     height: 5vmax;
 
     background-color: var(--red);
+}
+
+.nav-left a {
+    text-decoration: none;
+
+    margin-left: 2vmax;
+
+    transition: 0.2s;
+
+    img {
+        width: 2.5vmax;
+        height: 2.5vmax;
+    }
+}
+
+.nav-left a:hover {
+    transform: scale(0.9);
 }
 
 .triangle-left {

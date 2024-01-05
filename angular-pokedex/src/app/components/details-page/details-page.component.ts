@@ -44,6 +44,9 @@ export class DetailsPageComponent implements OnInit {
         this.getNext(pokeURL, id)
         this.getPrev(pokeURL, id)
         this.getAbilityDetail()
+      },
+      err => {
+        console.log(err);
       }
     )
   }

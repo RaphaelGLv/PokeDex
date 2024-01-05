@@ -5,6 +5,12 @@
     </div>
     <div class="triangle"></div>
     <div class="nav-right">
-        <input type="text" placeholder="Search pokemon" id="pkm-search">
+        <input type="text" value="" placeholder="Search pokemon" id="pkm-search" #filter (focus)="showDropDown()"
+            (blur)="hideDropDown()" (keyup)="filterList(filter.value)">
+        <div id="dropDown">
+            <p id="{{pokemon?.name}}" *ngFor="let pokemon of filteredPokemons" (mousedown)="getID(pokemon?.url)">
+                {{pokemon?.name | titlecase}}
+            </p>
+        </div>
     </div>
 </div>
