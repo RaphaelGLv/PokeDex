@@ -3,7 +3,6 @@ import { PokeAPIService } from '../../services/poke-api.service';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TypeColors } from '../types';
-import { error } from 'node:console';
 
 @Component({
   selector: 'app-details-page',
@@ -18,13 +17,15 @@ export class DetailsPageComponent implements OnInit {
   nextPokemon = {
     name: '',
     id: '',
-    img: ''
+    img: '',
+    img_backup: '',
   }
-
+  
   prevPokemon = {
     name: '',
     id: '',
-    img: ''
+    img: '',
+    img_backup: '',
   }
 
   typeColors = TypeColors
@@ -57,6 +58,7 @@ export class DetailsPageComponent implements OnInit {
         this.nextPokemon.name = res.name
         this.nextPokemon.id = res.id
         this.nextPokemon.img = res.sprites?.other?.showdown?.front_default
+        this.nextPokemon.img_backup = res.sprites?.front_default
       },
       err => {
         console.error(err)
@@ -70,6 +72,7 @@ export class DetailsPageComponent implements OnInit {
         this.prevPokemon.name = res.name
         this.prevPokemon.id = res.id
         this.prevPokemon.img = res.sprites?.other?.showdown?.front_default
+        this.prevPokemon.img_backup = res.sprites?.front_default
       },
       err => {
         console.error(err)
@@ -82,7 +85,7 @@ export class DetailsPageComponent implements OnInit {
       this.pokeAPIService.getPokemon(item.ability.url).subscribe(
         res => {
           let i = 0
-          while (res.effect_entries[i].language.name != 'en') {
+          while (res?.effect_entries[i]?.language?.name != 'en') {
             i++
           }
           item.ability.details = res.effect_entries[i].short_effect
