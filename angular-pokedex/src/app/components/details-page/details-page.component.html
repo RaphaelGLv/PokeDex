@@ -1,7 +1,7 @@
 <div class="content">
     <div class="nav-bar">
         <div class="nav-left">
-            <a href="/"><img src="../../../assets/svg/arrow-back-circle-outline-svgrepo-com.svg" alt="<-"></a>
+            <a href=""><img src="../../../assets/svg/arrow-back-circle-outline-svgrepo-com.svg" alt="<-"></a>
         </div>
         <div class="triangle-left"></div>
         <div class="nav-middle">
@@ -16,9 +16,9 @@
     </div>
 
     <div class="card">
-        <a class="prev-button" *ngIf="prevPokemon.id" href="http://localhost:4200/details/{{prevPokemon.id}}">
+        <a class="prev-button" *ngIf="prevPokemon.id" href="/details/{{prevPokemon.id}}">
             <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
-            <img src="{{prevPokemon.img}}" alt="">
+            <img src="{{prevPokemon.img}}" #prevImage (error)="prevPokemon.img_backup ? prevImage.src = prevPokemon.img_backup : prevImage.src = ''">
             <div class="button-text">
                 <h3>{{prevPokemon.name | titlecase}}</h3>
                 <p>#{{prevPokemon.id | number: '3.0-0'}}</p>
@@ -28,7 +28,7 @@
 
             <div class="card-left">
                 <div class="pkm-img">
-                    <img src="{{pokemon?.sprites?.other?.showdown?.front_default}}" alt="">
+                    <img src="{{pokemon?.sprites?.other?.showdown?.front_default}}" #image (error)="pokemon?.sprites?.front_default ? image.src = pokemon?.sprites?.front_default : image.src = ''">
                 </div>
                 <div class="stats">
                     <div class="stat">
@@ -106,9 +106,9 @@
             </div>
         </div>
 
-        <a class="next-button" *ngIf="nextPokemon.id" href="http://localhost:4200/details/{{nextPokemon.id}}">
+        <a class="next-button" *ngIf="nextPokemon.id" href="/details/{{nextPokemon.id}}">
             <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
-            <img src="{{nextPokemon.img}}" alt="">
+            <img src="{{nextPokemon.img}}" #nextImage (error)="nextPokemon.img_backup ? nextImage.src = nextPokemon.img_backup : nextImage.src = ''" alt="Image not found">
             <div class="button-text">
                 <h3>{{nextPokemon.name | titlecase}}</h3>
                 <p>#{{nextPokemon.id | number: '3.0-0'}}</p>
