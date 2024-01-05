@@ -3,7 +3,7 @@ import { DetailsPageComponent } from './components/details-page/details-page.com
 import { ListPokemonComponent } from './components/list-pokemon/list-pokemon.component';
 
 export const routes: Routes = [
-  { path: 'details/:id', component: DetailsPageComponent},
   { path: '', component: ListPokemonComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full'},
+  { path: 'details/:id', component: DetailsPageComponent},
+  { path: 'next/:id', redirectTo: 'details/:id', pathMatch: 'full'}
 ];

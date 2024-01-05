@@ -18,8 +18,8 @@ export class PokeAPIService {
   ) { }
 
   get apiListPokemonPage(): Observable<any> {
-    this.url = 'https://pokeapi.co/api/v2/pokemon' + '?offset=' + this.offset + '&limit=' + this.limit
-    this.offset += 20
+    this.url = `https://pokeapi.co/api/v2/pokemon?offset=${this.offset.toString()}&limit=${this.limit.toString()}`
+    this.offset += 8
 
     return this.http.get<any>(this.url)
   }
@@ -29,7 +29,7 @@ export class PokeAPIService {
   }
 
   public getAllPokemons(pokemonQty: string): Observable<any> {
-    this.filteredURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=' + pokemonQty
+    this.filteredURL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${pokemonQty}`
     
     return this.http.get<any>(this.filteredURL)
   }

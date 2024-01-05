@@ -30,9 +30,6 @@
 }
 
 .nav-left a {
-    display: flex;
-    align-items: center;
-    
     text-decoration: none;
 
     margin-left: 2vmax;
@@ -201,10 +198,6 @@
         width: auto;
 
         margin: 1vmax 0;
-
-        color: white;
-        text-align: center;
-        word-wrap: break-word;
     }
 
     .button-text {
@@ -220,9 +213,7 @@
         color: white;
 
         h3 {
-            width: 100%;
-            font-size: 100%;
-            text-align: center;
+            font-size: 1.6vmax;
             word-wrap: break-word;
         }
 
