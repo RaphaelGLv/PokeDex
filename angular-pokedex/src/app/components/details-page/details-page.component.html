@@ -6,70 +6,76 @@
         <div class="triangle-left"></div>
         <div class="nav-middle">
             <img class="pokeball" src="../../assets/svg/pokeball.svg" alt="Pokeball image">
-            <div class="text">
-                <h1 class="name">{{pokemon?.name | titlecase}}</h1>
-                <p class="id">#{{pokemon?.id | number: '3.0-0'}}</p>
+            <div *ngIf="pokemon" class="text">
+                <h1 class="name">{{pokemon.name| titlecase}}</h1>
+                <p class="id">#{{pokemon.id | number: '3.0-0'}}</p>
             </div>
         </div>
         <div class="triangle-right"></div>
         <div class="nav-right"></div>
     </div>
 
-    <div class="card">
-        <a class="prev-button" *ngIf="prevPokemon.id" href="/details/{{prevPokemon.id}}">
-            <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
-            <img src="{{prevPokemon.img}}" #prevImage (error)="prevPokemon.img_backup ? prevImage.src = prevPokemon.img_backup : prevImage.src = ''">
-            <div class="button-text">
-                <h3>{{prevPokemon.name | titlecase}}</h3>
-                <p>#{{prevPokemon.id | number: '3.0-0'}}</p>
-            </div>
-        </a>
+    <div *ngIf="pokemon" class="card">
         <div class="card-content">
 
             <div class="card-left">
                 <div class="pkm-img">
-                    <img src="{{pokemon?.sprites?.other?.showdown?.front_default}}" #image (error)="pokemon?.sprites?.front_default ? image.src = pokemon?.sprites?.front_default : image.src = ''">
+                    <app-loader-pokeball *ngIf="loading"></app-loader-pokeball>
+                    <img *ngIf="!loading" src="{{pokemon.pokemon_v2_pokemonsprites[0].sprites}}" #image
+                        (error)="image.src = '../../../assets/svg/unknown-pokemon.svg'">
                 </div>
                 <div class="stats">
                     <div class="stat">
-                        <p class="stat-name">HP</p>
+                            <p class="stat-name">HP</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[0].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[0].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[0].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat">
-                        <p class="stat-name">Attack</p>
+                            <p class="stat-name">Attack</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[1].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[1].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[1].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat">
-                        <p class="stat-name">Defense</p>
+                            <p class="stat-name">Defense</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[2].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[2].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[2].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat">
-                        <p class="stat-name">Special Attack</p>
+                            <p class="stat-name">Special Attack</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[3].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[3].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[3].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat">
-                        <p class="stat-name">Special Defense</p>
+                            <p class="stat-name">Special Defense</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[4].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[4].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[4].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat">
-                        <p class="stat-name">Speed</p>
+                            <p class="stat-name">Speed</p>
                         <div class="stat-bar">
-                            <div class="stat-fill" [style.width.%]="(pokemon?.stats[5].base_stat)*0.66"></div>
+                            <div class="stat-fill" [style.width.%]="(pokemon.pokemon_v2_pokemonstats[5].base_stat)*0.392">
+                                <p class="stat-value">{{pokemon.pokemon_v2_pokemonstats[5].base_stat}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,44 +83,33 @@
 
             <div class="card-right">
                 <div class="types">
-                    <div *ngFor="let item of pokemon?.types">
-                        <p class="type" [style.backgroundColor]="typeColors[item?.type?.name]">{{item.type.name |
+                    <div *ngFor="let item of pokemon.pokemon_v2_pokemontypes">
+                        <p class="type" [style.backgroundColor]="typeColors[item.pokemon_v2_type.name]">{{item.pokemon_v2_type.name |
                             titlecase}}</p>
                     </div>
                 </div>
                 <div class="info">
                     <div class="height">
                         <h2 class="info-title">Height</h2>
-                        <p class="info-value">{{pokemon?.height/10 | number: '1.2-2'}}m</p>
+                        <p class="info-value">{{pokemon.height/10 | number: '1.2-2'}}m</p>
                     </div>
                     <div class="weight">
                         <h2 class="info-title">Weight</h2>
-                        <p class="info-value">{{pokemon?.weight/10 | number: '1.2-2'}}kg</p>
+                        <p class="info-value">{{pokemon.weight/10 | number: '1.2-2'}}kg</p>
                     </div>
                     <div class="abilities">
                         <h2 class="info-title">Abilities</h2>
-                        <div class="info-value" *ngFor="let item of pokemon?.abilities">
-                            <p>{{item?.ability?.name | titlecase}}</p>
-                            <button class="details-button" (click)="showAbilityEffect(item?.ability?.details, $event)">
-                                <img src="../../../assets/svg/question-mark-in-a-circle-outline-svgrepo-com (1).svg"
-                                    alt="?">
-                                <div id="popUp"></div>
+                        <div class="info-value" *ngFor="let item of pokemon.pokemon_v2_pokemonabilities">
+                            <p class="ability-name">{{item.pokemon_v2_ability.name | titlecase}}</p>
+                            <button class="details-button" id="details-button">
+                                ?
+                                <div id="popUp">{{item.pokemon_v2_ability.pokemon_v2_abilityeffecttexts[0].short_effect}}</div>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <a class="next-button" *ngIf="nextPokemon.id" href="/details/{{nextPokemon.id}}">
-            <!-- não usei routerLink pois ele reaproveita o componente quando se muda apenas o parametro, nao atualizando a pagina -->
-            <img src="{{nextPokemon.img}}" #nextImage (error)="nextPokemon.img_backup ? nextImage.src = nextPokemon.img_backup : nextImage.src = ''" alt="Image not found">
-            <div class="button-text">
-                <h3>{{nextPokemon.name | titlecase}}</h3>
-                <p>#{{nextPokemon.id | number: '3.0-0'}}</p>
-            </div>
-        </a>
-
     </div>
 
 </div>

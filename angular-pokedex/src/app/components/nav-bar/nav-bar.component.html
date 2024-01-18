@@ -8,8 +8,8 @@
         <input type="text" value="" placeholder="Search pokemon" id="pkm-search" #filter (focus)="showDropDown()"
             (blur)="hideDropDown()" (keyup)="filterList(filter.value)">
         <div id="dropDown">
-            <p id="{{pokemon?.name}}" *ngFor="let pokemon of filteredPokemons" (mousedown)="getID(pokemon?.url)">
-                {{pokemon?.name | titlecase}}
+            <p id="{{pokemon.name}}" *ngFor="let pokemon of filteredPokemons" (mousedown)="goToPage(pokemon.id)">
+                {{pokemon.name| titlecase}}
             </p>
         </div>
     </div>

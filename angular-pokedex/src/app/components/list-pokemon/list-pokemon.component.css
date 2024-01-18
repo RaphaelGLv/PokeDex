@@ -36,6 +36,12 @@ a {
     color: black;
 }
 
+app-loader-pokeball {
+    position: fixed;
+    top: calc(50% - 1vmax);
+    left: calc(50% - 1vmax);
+}
+
 .card {
     list-style: none;
 
