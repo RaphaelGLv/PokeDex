@@ -3,7 +3,12 @@ import { ListPokemonComponent } from '../list-pokemon/list-pokemon.component';
 import { FormsModule } from '@angular/forms';
 import { PokeAPIService } from '../../services/poke-api.service';
 import { NgFor, TitleCasePipe } from '@angular/common';
+import { Apollo, gql } from 'apollo-angular';
 
+interface Pokemon {
+  name: string;
+  id: number
+}
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -17,32 +22,29 @@ import { NgFor, TitleCasePipe } from '@angular/common';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent implements OnInit{
-  pokemonQty: string = ''
-  filteredPokemons: any[] = []
+  filteredPokemons: Pokemon[] = []
 
-  constructor(private pokeAPIService: PokeAPIService) { }
+  constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
-    this.pokeAPIService.getPokemonQty.subscribe(
-      res => {
-        this.pokemonQty = res.count
-        this.fillList(this.pokemonQty)        
-      },
-      err => {
-        console.log(err);
-      }
-    )
+    this.loadAllPokemons()
   }
 
-  fillList(pokemonQty: string): void {
-    this.pokeAPIService.getAllPokemons(pokemonQty).subscribe(
-      res => {
-        this.filteredPokemons = res.results
-      },
-      err => {
-        console.log(err);
-      }
-    )
+  loadAllPokemons = () => {
+    this.apollo
+      .watchQuery({
+        query: gql`
+        query GetAll {
+          pokemon_v2_pokemon {
+            name
+            id
+          }
+        }
+        `
+      })
+      .valueChanges.subscribe((res: any) => {
+        this.filteredPokemons = res.data.pokemon_v2_pokemon        
+      })
   }
 
   showDropDown(): void {
@@ -62,26 +64,11 @@ export class NavBarComponent implements OnInit{
       }
       else {
         document.getElementById(pokemon?.name)!.style.display = ''
-        console.log(pokemon.url)
       }
     })
   }
 
-  getID(pokeURL: string): void {
-    let id: string = ''
-    
-    this.pokeAPIService.getPokemon(pokeURL).subscribe(
-      res => {
-        id = res.id
-        this.goToPage(id)
-      },
-      err => {
-        console.log(err);
-      }
-    )    
-  }
-
-  goToPage(id: string): void {
+  goToPage(id: number): void {
     window.location.href = `/details/${id}`
   }
 }

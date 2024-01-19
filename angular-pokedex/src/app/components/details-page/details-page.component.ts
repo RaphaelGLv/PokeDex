@@ -3,118 +3,113 @@ import { PokeAPIService } from '../../services/poke-api.service';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TypeColors } from '../types';
+import { LoaderPokeballComponent } from '../../loader-pokeball/loader-pokeball.component';
+import { Apollo, gql } from 'apollo-angular';
 
+interface Pokemon {
+  id: number;
+  name: string;
+  pokemon_v2_pokemonsprites: {
+    sprites: string;
+  }[];
+  pokemon_v2_pokemontypes: {
+    pokemon_v2_type: {
+      name: string;
+    };
+  }[];
+  pokemon_v2_pokemonstats: {
+    pokemon_v2_stat: {
+      name: string;
+    };
+    base_stat: number;
+  }[];
+  height: number;
+  weight: number;
+  pokemon_v2_pokemonabilities: {
+    pokemon_v2_ability: {
+      name: string;
+      pokemon_v2_abilityeffecttexts: {
+        short_effect: string
+      }[]
+    };
+  }[];
+}
 @Component({
   selector: 'app-details-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    LoaderPokeballComponent
+  ],
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.css'
 })
+
 export class DetailsPageComponent implements OnInit {
-  pokemon: any
-
-  nextPokemon = {
-    name: '',
-    id: '',
-    img: '',
-    img_backup: '',
-  }
-  
-  prevPokemon = {
-    name: '',
-    id: '',
-    img: '',
-    img_backup: '',
-  }
-
+  pokemon!: Pokemon
+  loading: boolean = true
+  error: any
   typeColors = TypeColors
 
   constructor(
     private route: ActivatedRoute,
-    private pokeAPIService: PokeAPIService
+    private apollo: Apollo
   ) { }
-  
+
   ngOnInit(): void {
-    const pokeURL = 'https://pokeapi.co/api/v2/pokemon/'
     const id = Number(this.route.snapshot.paramMap.get('id'))
 
-    this.pokeAPIService.getPokemon(pokeURL + id).subscribe(
-      res => {
-        this.pokemon = res
-        this.getNext(pokeURL, id)
-        this.getPrev(pokeURL, id)
-        this.getAbilityDetail()
-      },
-      err => {
-        console.log(err);
-      }
-    )
+    this.loadPokemon(id)
   }
 
-  getNext(pokeURL: string, id: number): void {
-    this.pokeAPIService.getPokemon(pokeURL + (id + 1)).subscribe(
-      res => {
-        this.nextPokemon.name = res.name
-        this.nextPokemon.id = res.id
-        this.nextPokemon.img = res.sprites?.other?.showdown?.front_default
-        this.nextPokemon.img_backup = res.sprites?.front_default
-      },
-      err => {
-        console.error(err)
-      }
-    )
-  }
-
-  getPrev(pokeURL: string, id: number): void {
-    this.pokeAPIService.getPokemon(pokeURL + (id - 1)).subscribe(
-      res => {
-        this.prevPokemon.name = res.name
-        this.prevPokemon.id = res.id
-        this.prevPokemon.img = res.sprites?.other?.showdown?.front_default
-        this.prevPokemon.img_backup = res.sprites?.front_default
-      },
-      err => {
-        console.error(err)
-      }
-    )
-  }
-
-  getAbilityDetail(): void {
-    this.pokemon.abilities.forEach((item: {ability: {url: string; details: string}}) => {
-      this.pokeAPIService.getPokemon(item.ability.url).subscribe(
-        res => {
-          let i = 0
-          while (res?.effect_entries[i]?.language?.name != 'en') {
-            i++
+  loadPokemon = (id: number) => {
+    this.apollo
+      .watchQuery({
+        query: gql`
+        query GetPokemon ($id: Int) {
+          pokemon_v2_pokemon(where: {id: {_eq: $id}}) {
+          id
+          name
+          pokemon_v2_pokemonsprites {
+            sprites(path: "other.showdown.front_default")
           }
-          item.ability.details = res.effect_entries[i].short_effect
-        },
-        err => {
-          console.error(err)
+          pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+              name
+            }
+          }
+          pokemon_v2_pokemonstats {
+            pokemon_v2_stat {
+              name
+            }
+            base_stat
+          }
+          height
+          weight
+          pokemon_v2_pokemonabilities {
+            pokemon_v2_ability {
+              name
+              pokemon_v2_abilityeffecttexts (where: {language_id: {_eq: 9}}) {
+                short_effect
+              }
+            }
+          }
         }
-      )
-    })
+      }      
+      `,
+        variables: { id }
+      })
+      .valueChanges.subscribe((res: any) => {
+        this.pokemon = res.data.pokemon_v2_pokemon[0]
+        this.loading = res.loading || !res.data
+        this.error = res.error
+      })
   }
 
-  showAbilityEffect(text: string, event: MouseEvent): void {
-    const popUp = document.getElementById("popUp")!
-
-    popUp.style.bottom = '-1.2vmax' // Resetar a posição a cada click e tirar o popup de cima do texto
-
-    popUp.innerHTML = text
-
-    const posY = popUp.getBoundingClientRect().bottom
-
-    popUp.style.bottom = (posY - event.pageY).toString() + 'px'
-
-
-    if (popUp.style.visibility == "hidden") {
-      popUp.style.visibility = "visible";
-    }
-    else {
-      popUp.style.visibility = "hidden";
-    }
+  hideLoadingComponent = (id: string): void => {
+    document!.getElementById(id)!.style.visibility = 'hidden'
   }
-  
 }

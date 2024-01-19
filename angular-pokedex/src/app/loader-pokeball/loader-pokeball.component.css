@@ -1,0 +1,58 @@
+.loader {
+    height: 2vmax;
+    width: 2vmax;
+    overflow: visible;
+
+    
+    animation: spin 2s ease-in-out infinite;
+}
+
+.loader path {
+    fill: var(--red);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.top-pokeball {
+    animation: separateTop 2s ease-in-out infinite;
+}
+
+@keyframes separateTop {
+    10% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1.5vmax);
+    }
+
+    90% {
+        transform: translateY(0);
+    }
+}
+
+.bottom-pokeball {
+    animation: separateBottom 2s ease-in-out infinite;
+}
+
+@keyframes separateBottom {
+    10% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(1.5vmax);
+    }
+
+    90% {
+        transform: translateY(0);
+    }
+}
