@@ -160,10 +160,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
+    
     width: 100%;
     height: 100%;
-
+    
     @media (max-width: 620px) {
         display: flex;
         flex-direction: column-reverse;
@@ -177,9 +177,14 @@
     }
 }
 
+:host ::ng-deep .button-loading path {
+    fill: white !important;
+}
+
 .prev-button,
 .next-button {
     position: absolute;
+    z-index: 100;
 
     display: flex;
     flex-direction: column;
@@ -194,6 +199,8 @@
 
     border: 1px solid white;
     border-radius: 0.2vmax;
+
+    cursor: pointer;
 
     transition: ease-in-out;
 
@@ -222,7 +229,7 @@
 
         h3 {
             width: 100%;
-            font-size: 100%;
+            font-size: 1.6vmax;
             text-align: center;
             word-wrap: break-word;
         }
@@ -230,6 +237,7 @@
         p {
             font-size: 0.8vmax;
         }
+
     }
 
     @media (max-width: 620px) {
@@ -330,14 +338,10 @@
 
         width: 100%;
         height: 1vmax;
-        
+
         border-radius: 1vmax;
 
         background-color: var(--lightGray);
-        
-        @media (max-width: 620px) {
-            height: 0.5vmax;
-        }
     }
 
     .stat-fill {
@@ -349,25 +353,19 @@
 
         background-color: #ed1e25;
         border-radius: 1vmax;
-       
+
         z-index: 2;
-        
-        @media (max-width: 620px) {
-            height: 0.5vmax;
-        }
     }
 
     .stat-value {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
 
         height: 100%;
 
         color: var(--lightGray);
         font-size: 0.7vmax;
     }
-    
+
     @media (max-width: 620px) {
         width: 80%;
 

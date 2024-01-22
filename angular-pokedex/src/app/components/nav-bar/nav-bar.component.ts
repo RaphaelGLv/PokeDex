@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ListPokemonComponent } from '../list-pokemon/list-pokemon.component';
 import { FormsModule } from '@angular/forms';
-import { PokeAPIService } from '../../services/poke-api.service';
 import { NgFor, TitleCasePipe } from '@angular/common';
-import { Apollo, gql } from 'apollo-angular';
-
+import { PokeGraphQLService } from '../../poke-graph-ql.service';
 interface Pokemon {
   name: string;
   id: number
@@ -16,35 +14,22 @@ interface Pokemon {
     ListPokemonComponent,
     FormsModule,
     NgFor,
-    TitleCasePipe
+    TitleCasePipe,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent implements OnInit {
   filteredPokemons: Pokemon[] = []
 
-  constructor(private apollo: Apollo) { }
+  constructor(
+    private graphQL: PokeGraphQLService
+  ) { }
 
   ngOnInit(): void {
-    this.loadAllPokemons()
-  }
-
-  loadAllPokemons = () => {
-    this.apollo
-      .watchQuery({
-        query: gql`
-        query GetAll {
-          pokemon_v2_pokemon {
-            name
-            id
-          }
-        }
-        `
-      })
-      .valueChanges.subscribe((res: any) => {
-        this.filteredPokemons = res.data.pokemon_v2_pokemon        
-      })
+    this.graphQL.loadAllPokemons().subscribe((res: any) => {
+      this.filteredPokemons = res.data.pokemon_v2_pokemon;
+    })
   }
 
   showDropDown(): void {

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PokeAPIService } from './poke-api.service';
+import { PokeGraphQLService } from './poke-graph-ql.service';
 
-describe('PokeAPIService', () => {
-  let service: PokeAPIService;
+describe('PokeGraphQLService', () => {
+  let service: PokeGraphQLService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PokeAPIService);
+    service = TestBed.inject(PokeGraphQLService);
   });
 
   it('should be created', () => {
