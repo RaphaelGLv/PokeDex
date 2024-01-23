@@ -1,9 +1,10 @@
 .loader {
+    z-index: 200;
+
     height: 2vmax;
     width: 2vmax;
     overflow: visible;
 
-    
     animation: spin 2s ease-in-out infinite;
 }
 

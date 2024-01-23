@@ -5,19 +5,19 @@
             <app-loader-pokeball *ngIf="loading"></app-loader-pokeball>
             <div *ngIf="error">Error :(</div>
             <li *ngFor="let pokemon of pokemons" class="card">
-                <a routerLink="/details/{{pokemon?.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
+                <a routerLink="/details/{{pokemon.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
                     <div class="image">
                         <div class="img-container">
-                            <img src="{{pokemon?.pokemon_v2_pokemonsprites[0].sprites}}" #image (error)="image.src='../../../assets/svg/unknown-pokemon.svg'" >
+                            <img src="{{pokemon.pokemon_v2_pokemonsprites[0].sprites}}" #image (error)="image.src='../../../assets/svg/unknown-pokemon.svg'" >
                         </div>
-                        <p class="id">#{{pokemon?.id}}</p>
+                        <p class="id">#{{pokemon.id}}</p>
                     </div>
                     <div class="info">
-                        <h3 class="name">{{pokemon?.name | titlecase}}</h3>
+                        <h3 class="name">{{pokemon.name | titlecase}}</h3>
                         <div class="types">
-                            <div *ngFor="let item of pokemon?.pokemon_v2_pokemontypes">
-                                <p class="type" [style.backgroundColor]="typeColors[item?.pokemon_v2_type.name]">
-                                    {{item?.pokemon_v2_type.name | titlecase}}</p>
+                            <div *ngFor="let item of pokemon.pokemon_v2_pokemontypes">
+                                <p class="type" [style.backgroundColor]="typeColors[item.pokemon_v2_type.name]">
+                                    {{item.pokemon_v2_type.name | titlecase}}</p>
                             </div>
                         </div>
                     </div>
